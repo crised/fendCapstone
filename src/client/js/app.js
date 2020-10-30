@@ -9,14 +9,27 @@ function setElements(document) {
 }
 
 function cbGenerateButton(event) {
-    console.log(event);
-    console.log(generateButton);
-    setImg();
+    // setImg();
+    const data = {
+        "city": "Pichilemu",
+        "daysAhead": 3,
+        "keywords": "Corvette"
+    };
+    fetch('http://localhost:8080/input', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+    })
+        .then(res => res.json())
+        .then(json => {
+            console.log(json);
+        })
+        .catch((error) => console.log(error));
 }
 
-function setImg(url='https://cdn.pixabay.com/photo/2013/08/11/03/40/car-171422_150.jpg') {
+function setImg(url = 'https://cdn.pixabay.com/photo/2013/08/11/03/40/car-171422_150.jpg') {
     const newImg = new Image;
-    newImg.onload = function() {
+    newImg.onload = function () {
         imgElement.src = this.src;
     }
     newImg.src = url;
