@@ -3,6 +3,7 @@ const fetch = require('node-fetch');
 const express = require('express');
 const bodyParser = require('body-parser')
 const cors = require('cors');
+const assert = require('assert');
 
 
 dotenv.config();
@@ -18,7 +19,7 @@ app.get('/', function (req, res) {
 })
 
 app.listen(8080, function () {
-    console.log('Listening on port 8080!')
+    // console.log('Listening on port 8080!')
 })
 
 const geonames = function (city = 'London') {
@@ -32,18 +33,21 @@ const geonames = function (city = 'London') {
         });
 }
 
-const weatherbitCurrent = function (lat = 51.50853, lng = -0.12574) {
-    const base_url = 'https://api.weatherbit.io/v2.0/current';
+const weatherbit = function (daysAhead = 0, lat = 51.50853, lng = -0.12574) {
+    assert(daysAhead < 16);
+    let base_url = 'https://api.weatherbit.io/v2.0';
+    base_url = daysAhead ? `${base_url}/forecast/daily` : `${base_url}/current`;
     const url = `${base_url}?lat=${lat}&lon=${lng}&key=${process.env.API_KEY}`;
     fetch(url)
         .then(res => res.json())
         .then(json => {
-            const {weather, temp} = json.data[0];
-            const desc = `The weather is ${weather.description} with ${temp} degrees.`
+            const {weather, temp, datetime} = json.data[daysAhead];
+            const desc = `The weather for ${datetime} is ${weather.description} with ${temp} degrees.`
             console.log(desc);
         })
 }
 
+
 // geonames();
 // console.log(`Your API key is ${process.env.API_KEY}`);
-weatherbitCurrent();
+weatherbit(0);
