@@ -66,23 +66,34 @@ const pixabay = function (keywords = 'London') {
         });
 }
 
+const chainError = function (reason, res) {
+    res.send({error: reason});
+    return Promise.reject(reason);
+}
+
 const promiseChain = function (city = "Madrid", daysAhead = 0, keywords, res) {
     const stateObj = {}
-    geonames(city).then((data) => {
-        if (data) {
-            return weatherbit(daysAhead, data.lat, data.lng)
-        }
-    }).then(data => {
-        if (data) {
-            stateObj['weatherString'] = data;
-            return pixabay(keywords);
-        }
-    }).then(data => {
-        if (data) {
-            stateObj['imgURL'] = data;
-            console.log(stateObj);
-            res.send(stateObj);
-        }
-    });
+    geonames(city)
+        .then((data) => {
+            if (data) return weatherbit(daysAhead, data.lat, data.lng)
+        })
+        .then(data => {
+            if (data) {
+                stateObj['weatherString'] = data;
+                return pixabay(keywords);
+            }
+        })
+        .then(data => {
+            if (data) {
+                stateObj['imgURL'] = data;
+                console.log(stateObj);
+                res.send(stateObj);
+            }
+        })
+        .catch((error => {
+            console.log(error);
+            res.send({error: 'oops'})
+        }));
+
 }
 
