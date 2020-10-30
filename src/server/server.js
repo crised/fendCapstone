@@ -17,9 +17,16 @@ app.get('/', function (req, res) {
     res.sendFile(path.resolve('../client/views/index.html'))
 })
 
+/*
+ Sample response with made up data
+ */
 app.get('/input', function (req, res) {
-    console.log('hi there');
     promiseChain("Santiago", 0, "Ford F-150", res);
+})
+
+app.post('/input', function (req, res) {
+    const {city, daysAhead, keywords} = req.body;
+    promiseChain(city, daysAhead, keywords, res);
 })
 
 app.listen(8080, function () {
