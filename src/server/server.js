@@ -25,8 +25,8 @@ app.get('/input', function (req, res) {
 })
 
 app.post('/input', function (req, res) {
-    const {city, daysAhead, keywords} = req.body;
-    promiseChain(city, daysAhead, keywords, res);
+    const {city, daysAhead} = req.body;
+    promiseChain(city, daysAhead, res);
 })
 
 app.listen(8080, function () {
@@ -53,7 +53,7 @@ const weatherbit = function (daysAhead = 0, lat = 51.50853, lng = -0.12574) {
         .then(res => res.json())
         .then(json => {
             const {weather, temp, datetime} = json.data[daysAhead];
-            return `The weather for ${datetime} is ${weather.description} with ${temp} degrees.`
+            return `The weather is ${weather.description} with ${temp} degrees.`
         })
 }
 
@@ -66,7 +66,7 @@ const pixabay = function (keywords = 'London') {
         });
 }
 
-const promiseChain = function (city = "Madrid", daysAhead = 0, keywords, res) {
+const promiseChain = function (city = "Madrid", daysAhead = 0, res) {
     const stateObj = {}
     geonames(city)
         .then((data) => {
@@ -75,7 +75,7 @@ const promiseChain = function (city = "Madrid", daysAhead = 0, keywords, res) {
         .then(data => {
             if (data) {
                 stateObj['weatherString'] = data;
-                return pixabay(keywords);
+                return pixabay(city);
             }
         })
         .then(data => {

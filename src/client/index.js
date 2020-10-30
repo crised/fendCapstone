@@ -4,4 +4,6 @@ import './styles/style.scss'
 
 setElements(document);
 
-// Not exporting here
+export {
+    setElements
+}
