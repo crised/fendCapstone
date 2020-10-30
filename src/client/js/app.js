@@ -11,17 +11,10 @@ function setElements(document) {
     tripDuration = document.getElementById('tripDuration');
     imgElement = document.getElementById('imgId');
     weatherString = document.getElementById('weatherString');
-
     generateButton.addEventListener('click', cbGenerateButton);
 }
 
 function cbGenerateButton(event) {
-    // setImg();
-    // const data = {
-    //     "city": "Pichilemu",
-    //     "daysAhead": 3,
-    //     "keywords": "Corvette"
-    // };
     const [year, month, day] = tripStart.value.split('-');
     const time = moment([year, month - 1, day]).fromNow().split(' ');
     let daysAhead = 0;
@@ -32,7 +25,6 @@ function cbGenerateButton(event) {
     if (city.length < 3) return;
     const data = {daysAhead, city}
     postRequest(data)
-
 }
 
 function postRequest(data) {
