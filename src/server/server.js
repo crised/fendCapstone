@@ -47,7 +47,16 @@ const weatherbit = function (daysAhead = 0, lat = 51.50853, lng = -0.12574) {
         })
 }
 
+const pixabay = function (keywords = 'yellow dog') {
+    const url = `https://pixabay.com/api/?key=${process.env.API_KEY_PIXA}&q=${escape(keywords)}`;
+    fetch(url)
+        .then(res => res.json())
+        .then(json => {
+            console.log(json.hits[0].previewURL);
+        });
+}
 
 // geonames();
 // console.log(`Your API key is ${process.env.API_KEY}`);
-weatherbit(0);
+// weatherbit(0);
+pixabay();
