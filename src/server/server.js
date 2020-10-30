@@ -66,11 +66,6 @@ const pixabay = function (keywords = 'London') {
         });
 }
 
-const chainError = function (reason, res) {
-    res.send({error: reason});
-    return Promise.reject(reason);
-}
-
 const promiseChain = function (city = "Madrid", daysAhead = 0, keywords, res) {
     const stateObj = {}
     geonames(city)
