@@ -1,10 +1,20 @@
-# Weather-Journal App Project
+# Capstone project
 
 ## Overview
-This project requires you to create an asynchronous web app that uses Web API and user data to dynamically update the UI. 
+This project shows most of the concepts I've learn
 
-## Instructions
-This will require modifying the `server.js` file and the `website/app.js` file. You can see `index.html` for element references, and once you are finished with the project steps, you can use `style.css` to style your application to customized perfection.
+## Front end
+It uses Webpack, sass, and babel among other projects.
+It's basically making a post request, then
+updating the UI with the information responded.
+
+## Back end
+
+This is where things are interesting. 
+We're contacting 3 APIs in a serial manner.
+To achieve this functionality we use 
+a 3 step Promise chain. Only on the last Promise
+we send the response back to the client. 
 
 ## Extras
-If you are interested in testing your code as you go, you can use `tests.js` as a template for writing and running some basic tests for your code.
+It uses Jest for testing. 

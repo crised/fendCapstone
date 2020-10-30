@@ -18,6 +18,11 @@ function cbGenerateButton(event) {
     const [year, month, day] = tripStart.value.split('-');
     const time = moment([year, month - 1, day]).fromNow().split(' ');
     let daysAhead = 0;
+    /*
+    This logic is to calculate the days ahead.
+    Moment library tells you with a string how long is left to a date.
+    From example: That date is happening in *a* day.
+     */
     if (['day', 'days'].includes(time[2])) daysAhead = time[1] == 'a' ? 1 : Number(time[1]);
     const duration = tripEnd.value.split('-')[2] - tripStart.value.split('-')[2];
     if (duration > 0) tripDuration.innerHTML = `Trip duration (days): ${duration}`;
