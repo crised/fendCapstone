@@ -30,9 +30,7 @@ app.post('/input', function (req, res) {
     promiseChain(city, daysAhead, res);
 })
 
-app.listen(8080, function () {
-    // console.log('Listening on port 8080!')
-})
+app.listen(8080, function () {})
 
 const geonames = function (city = 'London') {
     const base_url = 'http://api.geonames.org/searchJSON';
