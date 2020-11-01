@@ -60,7 +60,8 @@ function setImg(url = 'https://cdn.pixabay.com/photo/2013/08/11/03/40/car-171422
 
 
 export {
-    setElements
+    setElements,
+    cbGenerateButton
 }
 
 

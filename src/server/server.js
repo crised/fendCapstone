@@ -30,8 +30,20 @@ app.post('/input', function (req, res) {
     promiseChain(city, daysAhead, res);
 })
 
-app.listen(8080, function () {})
+app.listen(8080, function () {
+})
 
+/**
+ * Returns coordinates for a given city.
+ *
+ * The function receive a String city,
+ * then it calls the Geonames API
+ * in order to get lat, long and Country
+ * names parameter about the city.
+ *
+ * @param city
+ * @returns Object containing, lat, lng and Country.
+ */
 const geonames = function (city = 'London') {
     const base_url = 'http://api.geonames.org/searchJSON';
     const url = `${base_url}?q=${city}&maxRows=1&username=crised`;
@@ -65,6 +77,8 @@ const pixabay = function (keywords = 'London') {
         });
 }
 
+const projectData = {};
+let id = 0;
 const promiseChain = function (city = "Madrid", daysAhead = 0, res) {
     const stateObj = {}
     geonames(city)
@@ -81,7 +95,8 @@ const promiseChain = function (city = "Madrid", daysAhead = 0, res) {
             if (data) {
                 stateObj['imgURL'] = data;
                 console.log(stateObj);
-                res.send(stateObj);
+                projectData[++id] = stateObj;
+                res.send(projectData[id]);
             }
         })
         .catch((error => {
@@ -90,4 +105,6 @@ const promiseChain = function (city = "Madrid", daysAhead = 0, res) {
         }));
 
 }
+
+module.exports = geonames;
 

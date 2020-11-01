@@ -2,6 +2,8 @@
 
 ## Overview
 This project shows most of the concepts I've learn
+It has an additional feature that calculates
+the duration of the trip.
 
 ## Front end
 It uses Webpack, sass, and babel among other projects.
